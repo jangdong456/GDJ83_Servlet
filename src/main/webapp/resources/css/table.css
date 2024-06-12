@@ -1,0 +1,15 @@
+@charset "UTF-8";     
+       
+	.tb1 {
+	    border: solid black 2px;
+	    border-spacing: 0;
+	    border-collapse: collapse; 
+	    width: 60%;
+	    margin: 10px auto; 
+	}
+	
+	.tb1 td, .tb1 th {
+	    border: dashed red 2px;
+	    height: 40px;
+	    text-align: center;
+	}
