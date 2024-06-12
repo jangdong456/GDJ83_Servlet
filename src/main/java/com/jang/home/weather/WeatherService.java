@@ -1,40 +1,25 @@
 package com.jang.home.weather;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class WeatherService {
-	
-	private StringBuffer sb;
+	// Service : 데이타 전처리 후처리 하는 작업
+	private WeatherDAO weatherDAO;
 	
 	public WeatherService() {
-		this.sb = new StringBuffer();
-
-		this.sb.append("서울 , 29.3 - 맑음 - 60");
-		this.sb.append("-부산 , 33.3 - 흐림 - 90");
-		this.sb.append("-제주 , 1.3 - 눈 - 30");
-		this.sb.append("-광주 , 9.3 - 태풍 - 10");
+		weatherDAO = new WeatherDAO();
 	}
 	
-	
 	public List<WeatherDTO> getWeathers() {
-		String info = sb.toString();
-		info = info.replace(",", "-");
-
-		StringTokenizer st = new StringTokenizer(info, "-");
+		List<WeatherDTO> ar = null;
 		
-		ArrayList<WeatherDTO> ar = new ArrayList<WeatherDTO>();
-		
-		while(st.hasMoreTokens()) {
-			WeatherDTO weatherDto = new WeatherDTO();
-			weatherDto.setCity(st.nextToken().trim());
-			weatherDto.setGion(Double.parseDouble(st.nextToken().trim()));
-			weatherDto.setStaus(st.nextToken().trim());
-			weatherDto.setHuminity(Integer.parseInt(st.nextToken().trim()));
-			
-			ar.add(weatherDto);
+		try {
+			ar = weatherDAO.getWeathers();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	
 		return ar;
 	}
 }

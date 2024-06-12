@@ -40,10 +40,9 @@ public class FrontController extends HttpServlet {
 		String uri = request.getRequestURI();
 		String method = request.getMethod();
 		
-		Action action = new Action();
-		String[] p = uri.split("/");
 		
 		if(!uri.equals("/favicon.ico")) {
+			String[] p = uri.split("/");
 //			System.out.println(uri);
 //			System.out.println(method);
 			
@@ -54,6 +53,7 @@ public class FrontController extends HttpServlet {
 
 			
 			String path = "";
+			Action action = new Action();
 			
 			if(uri.equals("/")) {
 				action.setFlag(true);

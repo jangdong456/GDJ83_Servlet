@@ -13,6 +13,7 @@
 		<table class="tb1">
 			<thead>
 				<tr>
+				<!--  <th>Num</th> -->
 					<th>도시</th>
 					<th>기온</th>
 					<th>상태</th>
@@ -25,7 +26,8 @@
 		<!-- pageScope :  이 페이지 안에서 사용하려면 사용 | setter를 이용해 값을 넣음 -->
 			<c:forEach items="${requestScope.list}" var="w">
 				<tr>
-					<td>${pageScope.w.city}</td>
+					<!-- <td>${pageScope.w.num}</td>  -->
+					<td><a href="./detail">${pageScope.w.city}</a></td>
 				    <td>${pageScope.w.gion}</td>
 				    <td>${pageScope.w.staus}</td>
 				    <td>${pageScope.w.huminity}</td>

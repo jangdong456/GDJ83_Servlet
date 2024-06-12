@@ -2,6 +2,14 @@ package com.jang.home.weather;
 
 public class WeatherDTO {
 	
+//	private long num;
+//	
+//	public long getNum() {
+//		return num;
+//	}
+//	public void setNum(long num) {
+//		this.num = num;
+//	}
 	private String city;
 	private double gion;
 	private String staus;
