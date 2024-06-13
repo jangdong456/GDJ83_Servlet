@@ -27,6 +27,9 @@ public class WeatherController {
 		Action action = new Action();
 		action.setFlag(true);
 		
+		//메서드 형식을 반환
+		String method = request.getMethod().toUpperCase();
+		
 		if(uri.equals("list")) {
 				
 			List<WeatherDTO> ar = ws.getWeathers();
@@ -35,7 +38,26 @@ public class WeatherController {
 			action.setPath("/WEB-INF/views/weather/list.jsp");
 
 		}else if(uri.equals("add")) {
-			action.setPath("/WEB-INF/views/weather/add.jsp");
+			// post 부분
+			if(method.equals("POST")) {
+				String city = request.getParameter("city");
+				Double gion = Double.parseDouble(request.getParameter("gion"));
+				String status = request.getParameter("status");
+				int huminity = Integer.parseInt(request.getParameter("huminity"));
+				
+				WeatherDTO weatherdto = new WeatherDTO();
+				weatherdto.setCity(city);
+				weatherdto.setGion(gion);
+				weatherdto.setStatus(status);
+				weatherdto.setHuminity(huminity);
+				
+				ws.add(weatherdto);
+			}
+			// get 부분
+			else {
+				action.setPath("/WEB-INF/views/weather/add.jsp");
+				
+			}
 			
 		}else if(uri.equals("delete")) {
 			

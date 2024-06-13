@@ -34,11 +34,15 @@ public class WeatherService {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			weatherDTO=null;
+			weatherDTO = null;
 		}
 		
 		return weatherDTO;
 		
+	}
+	
+	public void add(WeatherDTO weatherDTO) {
+		weatherDAO.add(weatherDTO);
 	}
 }
 

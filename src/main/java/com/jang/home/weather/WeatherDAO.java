@@ -3,8 +3,11 @@ package com.jang.home.weather;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // DAO ?? : 데이타 접근 객체
 
@@ -60,6 +63,60 @@ public class WeatherDAO {
 		}
 		return result;
 
+	}
+	
+	
+//	1,서울 , 29.3 - 맑음 - 60
+//	2,부산 , 33.3 - 흐림 - 90
+//	3,제주 , 1.3 - 눈 - 30
+//	4,광주 , 9.3 - 태풍 - 10
+//	5,대구, 11.1 - 폭염 - 90  
+// UTF-8설정하기 -> 톰캣폴더 -> Conf폴더-> server.xml 파일 메모장으로 열어서 8080 으로 찾고 그밑에 파일수정
+	
+	
+	
+	public void add(WeatherDTO weatherDTO) throws Exception {
+		//size 가져와서 이걸 번호로 입력
+		List<WeatherDTO> ar = this.getWeathers();
+		
+		// 도시명-기온-상태-습도
+		System.out.println("DAO입니다");
+
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("파일명을 입력");
+		String fileName = sc.next();
+		
+		File file = new File("C:\\study", fileName);
+		
+		FileWriter fw = null;
+		
+
+		StringBuffer sbffer = new StringBuffer();
+		
+		sbffer.append(weatherDTO.getCity());
+		sbffer.append(ar.size()+1);
+		sbffer.append("-");
+		sbffer.append(weatherDTO.getGion());
+		sbffer.append("-");
+		sbffer.append(weatherDTO.getStatus());
+		sbffer.append("-");
+		sbffer.append(weatherDTO.getHuminity());
+		
+		
+		sbffer.toString();
+		System.out.println(sbffer);
+		
+		try {
+			fw = new FileWriter(file, true);
+			fw.write(sbffer + "\r\n");
+			fw.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		fw.close();
+				
 	}
 }
 

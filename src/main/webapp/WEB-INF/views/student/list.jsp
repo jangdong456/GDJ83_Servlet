@@ -33,8 +33,8 @@
 		<tbody>
 			<c:forEach items="${requestScope.list}" var="student">
 				<tr>
-					<td>${pageScope.student.num}</a></td>
-				    <td><a href="./detail?name=${pageScope.student.name}">${pageScope.student.name}</td>
+					<td>${pageScope.student.num}</td>
+				    <td><a href="./detail?name=${pageScope.student.name}"></a>${pageScope.student.name}</td>
 				    <td>${pageScope.student.avg}</td>
 				</tr>
 			</c:forEach >
