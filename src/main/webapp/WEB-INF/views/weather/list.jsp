@@ -9,11 +9,11 @@
 <link href="/resources/css/table.css" rel ="stylesheet"> 
 </head>
 <body>
-	<h1>날씨 정보 리스트</h1>
+		<h1>날씨 정보 리스트</h1>
 		<table class="tb1">
 			<thead>
 				<tr>
-				<!--  <th>Num</th> -->
+					<th>Num</th>
 					<th>도시</th>
 					<th>기온</th>
 					<th>상태</th>
@@ -26,10 +26,11 @@
 		<!-- pageScope :  이 페이지 안에서 사용하려면 사용 | setter를 이용해 값을 넣음 -->
 			<c:forEach items="${requestScope.list}" var="w">
 				<tr>
-					<!-- <td>${pageScope.w.num}</td>  -->
-					<td><a href="./detail">${pageScope.w.city}</a></td>
+					<!--  파라미터 key의 이름은 : DTO의 setter의 이름과 동일하게 만들어라 -->
+					<td>${pageScope.w.num}</td> 
+					<td><a href="./detail?num=${pageScope.w.num}">${pageScope.w.city}</a></td>
 				    <td>${pageScope.w.gion}</td>
-				    <td>${pageScope.w.staus}</td>
+				    <td>${pageScope.w.status}</td>
 				    <td>${pageScope.w.huminity}</td>
 				</tr>
 			</c:forEach >

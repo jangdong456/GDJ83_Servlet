@@ -2,14 +2,18 @@ package com.jang.home.weather;
 
 import java.util.List;
 
+// Service : 데이타 전처리 후처리 하는 작업
 public class WeatherService {
-	// Service : 데이타 전처리 후처리 하는 작업
+	
+	
+	//DAO 클래스를 이용하려고 밑에 생성자와 변수를 만듬
 	private WeatherDAO weatherDAO;
 	
 	public WeatherService() {
 		weatherDAO = new WeatherDAO();
 	}
 	
+	// list 가져올 메서드
 	public List<WeatherDTO> getWeathers() {
 		List<WeatherDTO> ar = null;
 		
@@ -22,8 +26,19 @@ public class WeatherService {
 	
 		return ar;
 	}
+	
+	//detail parameter 값  WeatherDTO weatherDTO
+	public WeatherDTO getDetail(WeatherDTO weatherDTO) {
+		try {
+		weatherDTO = weatherDAO.getDetail(weatherDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			weatherDTO=null;
+		}
+		
+		return weatherDTO;
+		
+	}
 }
 
-// 1. 각 url에 맞는 jsp로 연결
-// 2. /weather/list/getWeatheres 실행
-// 3. 실행하면 테이블에 위에내용 도시 온도 상태 습도 정보 보이게하기 | 4행 / 4열

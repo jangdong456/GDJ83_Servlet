@@ -40,17 +40,20 @@ public class StudentController {
 		
 		// 경로가 맞으면 jsp 경로를 반환하고, 값을 request에 보내려고 만든 if문
 		if(path.equals("list")) {
-			List<Student> ar = studentService.getStudents();
+			List<StudentDTO> ar = studentService.getStudents();
+			
+			List<StudentDTO> ar2 = studentService.getStudentList();
 			
 			// jsp 페이지로 넘겨주기 위해서 request.setAttribute("이름", 보내줄 값) 를 사용한다.
-			request.setAttribute("list", ar);
+//			request.setAttribute("list", ar);
+			request.setAttribute("list", ar2);
 			action.setPath("/WEB-INF/views/student/list.jsp");
 			
 			
 		}else if (path.equals("add")) {
 			// toUpperCase() : 대문자로 변경
 			if(method.toUpperCase().equals("POST")) {
-				Student student = new Student();
+				StudentDTO student = new StudentDTO();
 				
 //				System.out.println("학생등록 데이터를 꺼내야함");
 				//client 받은 파라미터 값을 받아서 -> dto를 넣는다. | set이용
@@ -90,14 +93,27 @@ public class StudentController {
 			}
 			
 		}else if (path.equals("detail")) {
+//			StudentDTO stduent = this.studentService.makeStudent();
+//			request.setAttribute("student", stduent);
+//			action.setPath("/WEB-INF/views/student/detail.jsp");
 			
-			Student stduent = this.studentService.makeStudent();
-//			request.setAttribute(s, student)
-			request.setAttribute("student", stduent);
-			action.setPath("/WEB-INF/views/student/detail.jsp");
-//			request.setAttribute("name", name);
-//			request.setAttribute("avg", avg);
 			
+			String name = request.getParameter("name");
+			StudentDTO studentDTO = new StudentDTO();
+			studentDTO.setName(name);
+			
+			studentDTO = studentService.getinfo(studentDTO);
+//			System.out.println("11111111");
+//			System.out.println(studentDTO+"2222222222");
+			if (studentDTO != null) {
+				request.setAttribute("dto", studentDTO);
+				action.setPath("/WEB-INF/views/student/detail.jsp");
+			}else {
+				request.setAttribute("msg", "정보가없습니다");
+				action.setPath("/WEB-INF/views/commons/message.jsp");
+			}
+			
+
 		} else {
 			
 		}
