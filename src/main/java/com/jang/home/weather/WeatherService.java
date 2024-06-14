@@ -30,7 +30,7 @@ public class WeatherService {
 	//detail parameter 값  WeatherDTO weatherDTO
 	public WeatherDTO getDetail(WeatherDTO weatherDTO) {
 		try {
-		weatherDTO = weatherDAO.getDetail(weatherDTO);
+			weatherDTO = weatherDAO.getDetail(weatherDTO);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,7 +42,12 @@ public class WeatherService {
 	}
 	
 	public void add(WeatherDTO weatherDTO) {
-		weatherDAO.add(weatherDTO);
+		try {
+			weatherDAO.add(weatherDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
 

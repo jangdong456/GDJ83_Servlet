@@ -52,6 +52,11 @@ public class WeatherController {
 				weatherdto.setHuminity(huminity);
 				
 				ws.add(weatherdto);
+				
+				action.setPath("./list"); // 상대경로 | 상대경로는 ./ 생략가능 
+//				action.setPath("list"); // 상대경로는 ./ 생략가능 
+//				action.setPath("/weather/list"); // 절대경로
+				action.setFlag(false);
 			}
 			// get 부분
 			else {

@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 // DAO ?? : 데이타 접근 객체
 
@@ -16,7 +15,7 @@ public class WeatherDAO {
 	public List<WeatherDTO> getWeathers() throws Exception {
 		//파일의 날씨정보들을 읽어와서 파싱한 다음 dto에 담아서 리턴
 		System.out.println("WeatherDAO 입니다");
-		File file = new File("C:\\study", "weather.txt");
+		File file = new File("C:\\study\\weather.txt");
 							
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
@@ -76,26 +75,20 @@ public class WeatherDAO {
 	
 	
 	public void add(WeatherDTO weatherDTO) throws Exception {
-		//size 가져와서 이걸 번호로 입력
+		//size 가져와서 이걸 번호로 입력 -> 순번
 		List<WeatherDTO> ar = this.getWeathers();
 		
-		// 도시명-기온-상태-습도
+		
 		System.out.println("DAO입니다");
 
-
-		Scanner sc = new Scanner(System.in);
-		System.out.println("파일명을 입력");
-		String fileName = sc.next();
-		
-		File file = new File("C:\\study", fileName);
-		
-		FileWriter fw = null;
-		
-
+		// 도시명-기온-상태-습도 가져오기
+//		StringBuffer(); ->  문자열을 연결해주는 메서드 -> 사용하기위해 하나의 객체를 만들어 거기에 문자열을 연결해 담는다.
+		// 이때 연결할때 append() 메서드를 사용한다.
+		// 그리고 toString(); 으로 문자열을 만들어준다.
 		StringBuffer sbffer = new StringBuffer();
-		
-		sbffer.append(weatherDTO.getCity());
 		sbffer.append(ar.size()+1);
+		sbffer.append("-");
+		sbffer.append(weatherDTO.getCity());
 		sbffer.append("-");
 		sbffer.append(weatherDTO.getGion());
 		sbffer.append("-");
@@ -107,47 +100,29 @@ public class WeatherDAO {
 		sbffer.toString();
 		System.out.println(sbffer);
 		
+		// 받아온 StringBuffer로 파일을 저장한다
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("파일명을 입력");
+		
+		File file = new File("C:\\study\\weather.txt");
+		
+		FileWriter fw = null;
+	
+		
 		try {
+			// new FileWriter() | false : 덮어씌운다?? 새로만드는가 ? 알아봐야함 | true : 파일이 똑같은게 있으면 거기에 이어써준다 
 			fw = new FileWriter(file, true);
+			// \r -> buffer초기화 -> 버퍼에 담긴거 밀어내고 다시 담기위해 다시 뒤로 땡겨옴 -> 왜 ? buffer는 담는용량의 크기가 정해져 있어서
+			// 캐리지리턴 : 커서위치를 맨앞에서 리턴시켜주는거 \r 을 안쓰면 커서가 뒤로 가있다.
 			fw.write(sbffer + "\r\n");
 			fw.flush();
+			
+			fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		fw.close();
+		
 				
 	}
 }
-
-
-//      boolean flag = true;		
-//		while(flag) {
-//			String info = br.readLine();
-//			info = info.replace(",", "-");
-//			
-//			if(info == null) {
-//				break;
-//			}
-//		
-//			StringTokenizer st = new StringTokenizer(info,",");
-//			
-//			WeatherDTO wDto = new WeatherDTO();
-//			
-//			while(st.hasMoreTokens()) {
-//				wDto.setNum(Long.parseLong(st.nextToken().trim()));
-//				wDto.setCity(st.nextToken().trim());
-//				wDto.setGion(Double.parseDouble(st.nextToken().trim()));
-//				wDto.setStatus(st.nextToken().trim());
-//				wDto.setHuminity(Integer.parseInt(st.nextToken().trim()));
-//				
-//				list.add(wDto);
-//			}
-		//br.close();
-		//fr.close();
-		//
-		//return list;
-//		}
-
-
-
