@@ -7,12 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>날씨 정보 추가 </h1>
+	<h1>수정페이지</h1>
 	
-	<form action="./add" method="post">
+	<form action="./update" method="post">
+		<input type="hidden" name="num" value="${dto.num}">
+		
 		<div>
 			<label>도시명</label>
-			<input type="text" name="city">
+			<!--   속성명이 같을게 없을때 명명 생략가능 -> requestScope 나 pageScope 생략가능-->
+			<input type="text" name="city" value="${dto.city}">
 		</div>
 		<div>
 			<label>기온</label>
@@ -29,7 +32,8 @@
 		
 				
 		<input type="submit" value=등록>
-		<button type="submit">등록</button>		
+		<button type="submit">등록</button>	
+			
 	</form>
 </body>
 </html>

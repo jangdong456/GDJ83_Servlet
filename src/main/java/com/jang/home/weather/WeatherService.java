@@ -49,5 +49,18 @@ public class WeatherService {
 			e.printStackTrace();
 		}
 	}
+	
+	public void delete(WeatherDTO weatherDTO) {
+		try {
+			weatherDAO.delete(weatherDTO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(WeatherDTO weatherDTO) {
+		weatherDAO.update(weatherDTO);
+	}
 }
 

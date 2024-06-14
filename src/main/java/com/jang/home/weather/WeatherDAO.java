@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 // DAO ?? : 데이타 접근 객체
@@ -65,11 +66,11 @@ public class WeatherDAO {
 	}
 	
 	
-//	1,서울 , 29.3 - 맑음 - 60
-//	2,부산 , 33.3 - 흐림 - 90
-//	3,제주 , 1.3 - 눈 - 30
-//	4,광주 , 9.3 - 태풍 - 10
-//	5,대구, 11.1 - 폭염 - 90  
+//1,서울 , 29.3 - 맑음 - 60
+//2,부산 , 33.3 - 흐림 - 90
+//3,제주 , 1.3 - 눈 - 30
+//4,광주 , 9.3 - 태풍 - 10
+//5,대구, 11.1 - 폭염 - 90  
 // UTF-8설정하기 -> 톰캣폴더 -> Conf폴더-> server.xml 파일 메모장으로 열어서 8080 으로 찾고 그밑에 파일수정
 	
 	
@@ -77,15 +78,13 @@ public class WeatherDAO {
 	public void add(WeatherDTO weatherDTO) throws Exception {
 		//size 가져와서 이걸 번호로 입력 -> 순번
 		List<WeatherDTO> ar = this.getWeathers();
-		
-		
-		System.out.println("DAO입니다");
-
 		// 도시명-기온-상태-습도 가져오기
 //		StringBuffer(); ->  문자열을 연결해주는 메서드 -> 사용하기위해 하나의 객체를 만들어 거기에 문자열을 연결해 담는다.
 		// 이때 연결할때 append() 메서드를 사용한다.
 		// 그리고 toString(); 으로 문자열을 만들어준다.
 		StringBuffer sbffer = new StringBuffer();
+		Calendar ca = Calendar.getInstance();
+		sbffer.append(ca.getTimeInMillis());
 		sbffer.append(ar.size()+1);
 		sbffer.append("-");
 		sbffer.append(weatherDTO.getCity());
@@ -121,8 +120,95 @@ public class WeatherDAO {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		} 		
+	}
+	
+	// 파라미터 값 받아와서 해당 번호가 WeatherDTO 랑 맞으면 
+	// 파일저장되어있는 num이 맞으면 그 해당 데이터 삭제후
+	// 다시 파일 쓰기
+	public void delete(WeatherDTO weatherDTO) throws Exception {
+		// list불러와서
+		// 지울려고 하는 num과 일치하는 것을 리스트에서 삭제
+		// list를 파일에 다시 저장
+		System.out.println("delete입니다");
+		//num = long타입
+		File file = new File("C:\\study\\weather.txt");
 		
-				
+		StringBuffer stbuffer = new StringBuffer();
+	
+		List<WeatherDTO> ar = this.getWeathers();
+		
+		StringBuffer stbuffer2 = new StringBuffer();
+		
+		FileWriter fw = new FileWriter(file, false);
+		
+		for(WeatherDTO dto1 : ar) {
+			if(dto1.getNum() == weatherDTO.getNum()) {
+				ar.remove(dto1);
+				break;
+			}
+		}
+		
+		//ar 을 파일에 작성
+		StringBuffer stringBuffer = new StringBuffer();
+		for(WeatherDTO dto1: ar) {
+			stbuffer2.append(dto1.getNum());
+			stbuffer2.append("-");
+			stbuffer2.append(dto1.getCity());
+			stbuffer2.append("-");
+			stbuffer2.append(dto1.getGion());
+			stbuffer2.append("-");
+			stbuffer2.append(dto1.getStatus());
+			stbuffer2.append("-");
+			stbuffer2.append(dto1.getHuminity());
+			stbuffer2.append("\r\n");
+		}
+		
+		fw.write(stringBuffer.toString() + "\r\n");
+		fw.flush();
+		
+//		FileWriter fw2 = null;
+//		for(int i=0; i<ar.size(); i++) {
+//			WeatherDTO wedto = ar.get(i);	
+//	
+//			if(weatherDTO.getNum() == wedto.getNum()) {
+//				stbuffer.append(ar.size()+1);
+//				stbuffer.append("-");
+//				stbuffer.append(wedto.getCity());
+//				stbuffer.append("-");
+//				stbuffer.append(wedto.getGion());
+//				stbuffer.append("-");
+//				stbuffer.append(wedto.getStatus());
+//				stbuffer.append("-");
+//				stbuffer.append(wedto.getHuminity());
+//				
+//				stbuffer.toString();
+//				
+//				FileWriter fw = new FileWriter(file, false);
+//				fw.write(stbuffer + "\r\n");
+//				fw.flush();
+//				fw.close();
+//				
+//				System.out.println("끝끝끝끝끝끝끝끝끝끝끝끝끝끝");
+//				break;
+//			}
+//		}
+//		
+//		fw2 = new FileWriter(file, true);
+//		fw2.write(stbuffer2 + "\r\n" + stbuffer + "\r\n");
+//		fw2.flush();
+//		fw2.close();
+		
+		System.out.println("종료종료종료");
+	}
+	
+	public void update(WeatherDTO weatherDTO) {
+		
+		WeatherDTO wdto = new WeatherDTO();
+		
+		if(weatherDTO.getNum() == wdto.getNum()) {
+			System.out.println("들어옴?");
+			
+		}
 	}
 }
